@@ -19,6 +19,6 @@ Le mode d'emploi du système de prospection d'Oqora, monté dans GoHighLevel (so
 
 ## À savoir
 
-Ce dépôt est **privé**. Le guide cite des informations internes : l'identifiant du sous-compte, l'identifiant du jeu de données Meta, les numéros de téléphone et adresses e-mail de l'agence. Ne pas le rendre public tel quel.
+Les identifiants techniques (sous-compte GoHighLevel, jeu de données Meta) ont été retirés du guide : ils se lisent directement dans le CRM.
 
 Dernière mise à jour du guide : 9 septembre 2026.

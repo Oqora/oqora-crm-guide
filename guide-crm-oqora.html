@@ -288,7 +288,7 @@ Appeler ou écrire pour proposer un nouveau créneau. Rendez-vous initial : {{co
   <h3>P4 · Meta Lead, P4b · Meta Schedule, P4c · Meta CompleteRegistration, P4d · Meta Purchase</h3>
   <p>Ces quatre automatisations préviennent Meta à chaque étape franchie : un lead arrive, un appel est posé, une visio est posée, un centre signe. Meta s'en sert pour montrer votre publicité à des gens qui ressemblent à ceux qui avancent. Plus vous lui donnez de signatures, mieux elle cible.</p>
   <p>Vous n'avez rien à faire, sauf une chose : <strong>écrire le montant sur la carte avant de la glisser sur « Remportée »</strong>. Sans montant, la signature ne part pas à Meta. Le montant dépend de l'offre, essai ou lancement.</p>
-  <p>Pour mémoire, si un jour il faut y toucher : les envois partent sur le jeu de données Meta 1249674110335330, avec la clé d'accès reprise des anciennes automatisations.</p>
+  <p>Pour mémoire, si un jour il faut y toucher : l'identifiant du jeu de données Meta et la clé d'accès sont inscrits dans les quatre actions, dans le CRM.</p>
   <div class="tableau">
     <table>
       <thead><tr><th>Workflow</th><th>Déclencheur</th><th>Événement envoyé à Meta</th></tr></thead>
@@ -309,7 +309,7 @@ Appeler ou écrire pour proposer un nouveau créneau. Rendez-vous initial : {{co
   <h3>Quand un prospect appelle</h3>
   <ol class="parcours">
     <li><span class="n"></span><div><p class="titre">Le prospect appelle</p><p>Il compose le 07 57 59 82 02, le numéro qu'il a vu dans vos messages.</p></div></li>
-    <li><span class="n"></span><div><p class="titre">Votre mobile sonne</p><p>Le 07 82 12 80 97 sonne, et l'écran affiche le 07 57 59 82 02, pas le numéro du prospect. Enregistrez ce numéro dans vos contacts sous « CRM Oqora » : vous reconnaîtrez l'appel d'un coup d'œil.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Votre mobile sonne</p><p>Votre mobile sonne, et l'écran affiche le 07 57 59 82 02, pas le numéro du prospect. Enregistrez ce numéro dans vos contacts sous « CRM Oqora » : vous reconnaîtrez l'appel d'un coup d'œil.</p></div></li>
     <li><span class="n"></span><div><p class="titre">Vous décrochez</p><p>Le prospect ne vous entend pas encore.</p></div></li>
     <li><span class="n"></span><div><p class="titre">Une voix devrait vous dire qui appelle</p><p>Le message est réglé sur « Appel CRM Oqora. Prénom Nom. » Il ne parle que dans votre oreille, le prospect ne l'entend jamais. <strong>Ce point n'a pas encore été essayé en vrai.</strong> Le nom est censé se remplir tout seul, mais la documentation de GoHighLevel ne le garantit pas pour ce champ, et l'accent de la voix n'est pas connu. Faites-vous appeler une fois par un proche pour l'entendre.</p></div></li>
     <li><span class="n"></span><div><p class="titre">La conversation commence</p><p>Les appels que vous passez depuis le CRM s'inscrivent dans la fiche, avec leur durée : c'est votre compteur d'appels. Pour un appel entrant renvoyé sur votre mobile, ce n'est pas vérifié. Regardez la fiche après votre premier vrai appel entrant.</p></div></li>
@@ -366,9 +366,9 @@ Appeler ou écrire pour proposer un nouveau créneau. Rendez-vous initial : {{co
     <li><strong>Le calendrier « Oqora Appel Découverte »</strong> : la description affichée sur le lien de réservation est déjà celle voulue depuis le 4 septembre au soir (« Ce même système a aidé des dizaines de cliniques… »), et l'espace parasite à la fin du nom a été retiré le 5 septembre. Rien à faire.</li>
     <li><strong>L'expéditeur des e-mails est « Jules de Oqora &lt;info@oqora.fr&gt; »</strong>, et c'est vous qui l'aviez réglé : Paramètres → Email Services → configuration du domaine contact.oqora.fr → « Définir des en-têtes ». Cet en-tête s'applique à tous les e-mails de workflow, quoi qu'on mette ailleurs. L'adresse de réponse « info@contact.oqora.fr » que vous voyez n'est pas un réglage : GHL la fabrique pour que les réponses des prospects reviennent dans Conversations. Ne la remplacez pas. L'adresse de l'entreprise (Profil d'entreprise) a été remise sur info@oqora.fr le 5 septembre, pour que tout pointe au même endroit ; contact@oqora.fr n'est plus utilisé nulle part.</li>
     <li><strong>Les dates sont en français naturel</strong> dans tous les messages (SMS, e-mails, tâche) : « lundi 7 septembre à 9h30 ». Le champ « RDV affichage » est rempli en tête de P2 et P2b par l'action « Code personnalisé » nommée « Date du RDV en français » (jour et mois en lettres, « 1er », « à », heure en 9h ou 9h30, pas d'année). Si un jour vous ajoutez un message qui parle de la date, utilisez le champ personnalisé « RDV affichage » et jamais « Appointment › Start Date Time », qui sort en anglais. Cette action est facturée à l'exécution par GHL, comme l'ancien GPT de vos workflows.</li>
-    <li><strong>Les notifications</strong> (P1 nouveau lead, P2c réponse OUI) et les tâches (P3, P3b) sont adressées au compte utilisateur « jules Couapel », jules@oqora.fr.</li>
+    <li><strong>Les notifications</strong> (P1 nouveau lead, P2c réponse OUI) et les tâches (P3, P3b) sont adressées à votre compte utilisateur « jules Couapel ».</li>
     <li><strong>Page de confirmation, bouton « Répondre oui »</strong> : les deux versions (mobile et bureau) ouvrent désormais l'application Messages avec « OUI » déjà écrit, vers le 07 57 59 82 02 (action « URL du site web », lien <code>sms:+33757598202?&amp;body=OUI</code>, page sauvegardée le 5 septembre à 12 h 16, vérifiée sur l'aperçu). Le OUI envoyé déclenche P2c.</li>
   </ul>
 
-  <footer>Document mis à jour le 9 septembre 2026 à partir de l'état réel du sous-compte Oqora (identifiant jmUms8s51Jw4OuPsmVLt). Les textes des messages sont ceux enregistrés dans les workflows.</footer>
+  <footer>Document mis à jour le 9 septembre 2026 à partir de l'état réel du sous-compte Oqora. Les textes des messages sont ceux enregistrés dans les workflows.</footer>
 </main>
