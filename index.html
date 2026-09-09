@@ -1,78 +1,205 @@
 <title>Guide du CRM Oqora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&display=swap">
 <style>
   :root {
-    --fond: #f5f6f7;
+    --fond: #f4f7fc;
     --papier: #ffffff;
-    --encre: #1b1f24;
-    --encre-2: #3d444d;
-    --encre-3: #626a72;
-    --trait: #d5d9de;
-    --trait-fort: #9aa2ab;
-    --platine: #e9ebee;
-    --platine-fonce: #2b3138;
-    --platine-clair: #f0f2f4;
+    --encre: #0b1733;
+    --encre-2: #46567a;
+    --encre-3: #7183a6;
+    --bleu: #2f6fe0;
+    --bleu-vif: #3b82f6;
+    --bleu-pale: #e9f0fd;
+    --or: #b08a4a;
+    --filet: #dfe7f5;
+    --filet-fort: #b9c8e4;
+    --bulle: #eef1f6;
+    --ombre: 0 1px 2px rgba(11,23,51,.05), 0 12px 32px -18px rgba(11,23,51,.28);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --fond: #14171b; --papier: #1c2025; --encre: #eef0f2; --encre-2: #c9ced4; --encre-3: #9aa2ab; --trait: #343a41; --trait-fort: #5a626b; --platine: #262b31; --platine-fonce: #e6e8eb; --platine-clair: #20252b;
+      --fond: #070d1c; --papier: #0f1a30; --encre: #e9eefb; --encre-2: #a9b8d6; --encre-3: #7f8fb2;
+      --bleu: #6a9bff; --bleu-vif: #8ab2ff; --bleu-pale: #16233f; --or: #d8b578;
+      --filet: #22304e; --filet-fort: #33456b; --bulle: #17223a;
+      --ombre: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
     }
   }
   :root[data-theme="dark"] {
-    --fond: #14171b; --papier: #1c2025; --encre: #eef0f2; --encre-2: #c9ced4; --encre-3: #9aa2ab; --trait: #343a41; --trait-fort: #5a626b; --platine: #262b31; --platine-fonce: #e6e8eb; --platine-clair: #20252b;
+    --fond: #070d1c; --papier: #0f1a30; --encre: #e9eefb; --encre-2: #a9b8d6; --encre-3: #7f8fb2;
+    --bleu: #6a9bff; --bleu-vif: #8ab2ff; --bleu-pale: #16233f; --or: #d8b578;
+    --filet: #22304e; --filet-fort: #33456b; --bulle: #17223a;
+    --ombre: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.7);
   }
+
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--fond); color: var(--encre); font: 16px/1.55 "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-  main { max-width: 860px; margin: 0 auto; padding: 48px 24px 96px; }
-  header.entete { border-bottom: 1px solid var(--trait-fort); padding-bottom: 28px; margin-bottom: 40px; }
-  .surtitre { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--encre-3); margin: 0 0 12px; }
-  h1 { font-size: 40px; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 14px; font-weight: 700; text-wrap: balance; }
-  .chapeau { font-size: 18px; color: var(--encre-2); margin: 0; max-width: 62ch; }
-  h2 { font-size: 24px; letter-spacing: -.01em; margin: 56px 0 18px; padding-top: 24px; border-top: 1px solid var(--trait); font-weight: 700; text-wrap: balance; }
-  h3 { font-size: 17px; margin: 28px 0 10px; font-weight: 700; }
-  p { margin: 0 0 14px; max-width: 68ch; }
-  ul, ol { margin: 0 0 16px; padding-left: 22px; max-width: 68ch; }
-  li { margin-bottom: 6px; }
-  strong { font-weight: 700; }
-  code { font: 14px/1.4 "SF Mono", Menlo, Consolas, monospace; background: var(--platine); padding: 1px 6px; border-radius: 3px; }
-  .sommaire { background: var(--papier); border: 1px solid var(--trait); padding: 20px 24px; margin: 0 0 8px; }
-  .sommaire p { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--encre-3); margin: 0 0 10px; }
-  .sommaire ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
-  .sommaire a { color: var(--encre); text-decoration: none; border-bottom: 1px solid var(--trait-fort); }
-  .sommaire a:hover, .sommaire a:focus-visible { border-bottom-color: var(--encre); outline: none; }
-  .tableau { overflow-x: auto; border: 1px solid var(--trait); background: var(--papier); margin: 0 0 20px; }
+  body {
+    margin: 0; background: var(--fond); color: var(--encre);
+    font: 400 17px/1.65 "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 920px; margin: 0 auto; padding: 0 24px 120px; }
+
+  /* ---------- en-tête ---------- */
+  header.entete { padding: 72px 0 44px; text-align: center; }
+  .marque {
+    font-size: 15px; font-weight: 800; letter-spacing: .42em; text-indent: .42em;
+    color: var(--encre); margin: 0 0 40px;
+  }
+  h1 {
+    font-size: clamp(38px, 6.2vw, 62px); line-height: 1.06; letter-spacing: -.03em;
+    font-weight: 800; margin: 0 0 20px; text-wrap: balance;
+  }
+  h1 .fil { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 400; color: var(--or); letter-spacing: -.01em; }
+  .chapeau { font-size: 19px; color: var(--encre-2); margin: 0 auto; max-width: 54ch; }
+  .surtitre {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--bleu); background: var(--bleu-pale);
+    padding: 7px 16px; border-radius: 999px; margin: 0 0 26px;
+  }
+
+  /* ---------- sommaire ---------- */
+  .sommaire { margin: 0 0 24px; }
+  .sommaire > p {
+    font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--encre-3); text-align: center; margin: 0 0 20px;
+  }
+  .sommaire ol {
+    list-style: none; margin: 0; padding: 0; max-width: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px;
+    counter-reset: som;
+  }
+  .sommaire li { margin: 0; counter-increment: som; }
+  .sommaire a {
+    display: flex; align-items: center; gap: 12px; height: 100%;
+    background: var(--papier); border: 1px solid var(--filet); border-radius: 14px;
+    padding: 14px 16px; color: var(--encre); text-decoration: none;
+    font-size: 15px; font-weight: 500; transition: border-color .15s, transform .15s;
+  }
+  .sommaire a::before {
+    content: counter(som, decimal-leading-zero);
+    font-size: 12px; font-weight: 700; color: var(--bleu);
+    background: var(--bleu-pale); border-radius: 8px; padding: 5px 8px;
+    font-variant-numeric: tabular-nums; flex: none;
+  }
+  .sommaire a:hover, .sommaire a:focus-visible { border-color: var(--bleu); transform: translateY(-1px); outline: none; }
+
+  /* ---------- titres de section ---------- */
+  h2 {
+    font-size: clamp(27px, 3.6vw, 36px); line-height: 1.15; letter-spacing: -.02em;
+    font-weight: 800; margin: 76px 0 22px; padding-top: 40px;
+    border-top: 1px solid var(--filet); text-wrap: balance;
+  }
+  h3 { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin: 40px 0 12px; }
+  p { margin: 0 0 16px; max-width: 68ch; color: var(--encre-2); }
+  p strong, li strong { color: var(--encre); font-weight: 700; }
+  ul, ol { margin: 0 0 18px; padding-left: 22px; max-width: 68ch; color: var(--encre-2); }
+  li { margin-bottom: 9px; }
+  code {
+    font: 500 .82em/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    background: var(--bulle); color: var(--encre); padding: 1px 6px; border-radius: 6px;
+    word-break: break-word;
+  }
+  .encart code { background: var(--papier); }
+
+  /* ---------- encarts ---------- */
+  .encart {
+    background: var(--bleu-pale); border-radius: 18px; padding: 22px 26px;
+    margin: 26px 0; max-width: 72ch;
+  }
+  .encart p { color: var(--encre-2); }
+  .encart p:last-child, .encart ul:last-child { margin-bottom: 0; }
+  .encart strong { color: var(--encre); }
+  .encart ul { padding-left: 20px; }
+
+  /* ---------- messages ---------- */
+  .message {
+    background: var(--papier); border: 1px solid var(--filet);
+    border-radius: 20px 20px 20px 6px; box-shadow: var(--ombre);
+    padding: 18px 22px; margin: 14px 0 24px; max-width: 60ch;
+    font-size: 16px; line-height: 1.62; color: var(--encre); white-space: pre-line;
+  }
+  .message .obj {
+    display: block; margin: 0 0 12px; padding-bottom: 10px; white-space: normal;
+    border-bottom: 1px solid var(--filet);
+    font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--bleu);
+  }
+
+  /* ---------- cartes ---------- */
+  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin: 0 0 24px; }
+  .carte {
+    background: var(--papier); border: 1px solid var(--filet); border-radius: 18px;
+    padding: 22px 24px; box-shadow: var(--ombre);
+  }
+  .carte h3 { margin: 0 0 10px; font-size: 17px; }
+  .carte p { margin: 0; font-size: 15px; }
+  .etat {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--bleu); margin-bottom: 12px;
+  }
+  .carte:has(.etat) .etat + h3 { margin-top: 0; }
+
+  /* ---------- parcours numéroté ---------- */
+  .parcours { list-style: none; padding: 0; margin: 0 0 26px; counter-reset: etape; max-width: none; }
+  .parcours li {
+    display: grid; grid-template-columns: 40px 1fr; gap: 18px; align-items: start;
+    background: var(--papier); border: 1px solid var(--filet); border-radius: 16px;
+    padding: 20px 22px; margin: 0 0 10px;
+  }
+  .parcours .n {
+    counter-increment: etape; display: grid; place-items: center;
+    width: 34px; height: 34px; border-radius: 11px;
+    background: var(--encre); color: var(--papier);
+    font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  :root[data-theme="dark"] .parcours .n, :root:not([data-theme="light"]) .parcours .n { }
+  .parcours .n::before { content: counter(etape); }
+  .parcours .titre { font-weight: 700; color: var(--encre); margin: 0 0 5px; font-size: 17px; }
+  .parcours p { margin: 0; font-size: 16px; }
+
+  /* ---------- tableaux ---------- */
+  .tableau {
+    overflow-x: auto; border: 1px solid var(--filet); border-radius: 18px;
+    background: var(--papier); margin: 0 0 24px; box-shadow: var(--ombre);
+  }
   table { border-collapse: collapse; width: 100%; font-size: 15px; }
-  th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--trait); }
-  th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); font-weight: 600; background: var(--platine-clair); }
-  tr:last-child td { border-bottom: none; }
-  td.num { font-variant-numeric: tabular-nums; color: var(--encre-3); white-space: nowrap; }
-  .puce { display: inline-block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--trait-fort); border-radius: 2px; white-space: nowrap; }
-  .puce.auto { background: var(--platine-fonce); color: var(--papier); border-color: var(--platine-fonce); }
-  .encart { background: var(--papier); border: 1px solid var(--trait); border-left: 4px solid var(--platine-fonce); padding: 16px 20px; margin: 20px 0; max-width: 72ch; }
-  .encart p:last-child { margin-bottom: 0; }
-  .parcours { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: etape; max-width: none; }
-  .parcours li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--trait); margin: 0; }
-  .parcours li:last-child { border-bottom: none; }
-  .parcours .n { counter-increment: etape; font-size: 13px; color: var(--encre-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
-  .parcours .n::before { content: counter(etape, decimal-leading-zero); }
-  .parcours .titre { font-weight: 700; margin: 0 0 4px; }
-  .parcours p { margin: 0; color: var(--encre-2); }
-  .message { background: var(--platine-clair); border: 1px solid var(--trait); padding: 14px 18px; margin: 10px 0 18px; font-size: 15px; max-width: 68ch; white-space: pre-line; }
-  .message .obj { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); display: block; margin-bottom: 6px; }
-  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 0 0 20px; }
-  .carte { background: var(--papier); border: 1px solid var(--trait); padding: 16px 18px; }
-  .carte h3 { margin: 0 0 8px; font-size: 16px; }
-  .carte p { margin: 0; font-size: 15px; color: var(--encre-2); }
-  .etat { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); display: block; margin-bottom: 8px; }
-  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--trait); font-size: 13px; color: var(--encre-3); }
-  @media (max-width: 640px) { h1 { font-size: 30px; } .sommaire ol { columns: 1; } main { padding: 32px 16px 64px; } }
-  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+  th, td { text-align: left; vertical-align: top; padding: 14px 18px; }
+  th {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+    color: var(--papier); background: var(--encre); white-space: nowrap;
+  }
+  td { border-top: 1px solid var(--filet); color: var(--encre-2); }
+  td:first-child { color: var(--encre); font-weight: 600; }
+  th:first-child, td:first-child { width: 1%; white-space: nowrap; padding-right: 10px; }
+  th:nth-child(2), td:nth-child(2) { min-width: 140px; }
+  td { font-variant-numeric: tabular-nums; }
+  tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--bleu-pale) 45%, transparent); }
+
+  /* ---------- pied ---------- */
+  footer {
+    margin-top: 80px; padding-top: 26px; border-top: 1px solid var(--filet);
+    font-size: 14px; color: var(--encre-3); text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    main { padding: 0 18px 80px; }
+    header.entete { padding: 48px 0 32px; }
+    .sommaire ol { grid-template-columns: 1fr; }
+    h2 { margin-top: 56px; padding-top: 32px; }
+    .parcours li { grid-template-columns: 1fr; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
 <main>
   <header class="entete">
-    <p class="surtitre">Oqora · Sous-compte GoHighLevel · à jour au 9 septembre 2026</p>
-    <h1>Guide du CRM Oqora</h1>
-    <p class="chapeau">Comment le système de prospection fonctionne, ce qu'il fait tout seul, et les gestes qui restent à faire à la main.</p>
+    <p class="marque">OQORA</p>
+    <p class="surtitre">Sous-compte GoHighLevel · 9 septembre 2026</p>
+    <h1>Le guide de votre <span class="fil">système de prospection</span></h1>
+    <p class="chapeau">Ce qu'il fait tout seul pendant que vous travaillez, et les trois gestes qui restent les vôtres.</p>
   </header>
 
   <nav class="sommaire" aria-label="Sommaire">
