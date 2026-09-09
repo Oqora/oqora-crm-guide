@@ -1,0 +1,376 @@
+<title>Guide du CRM Oqora</title>
+<style>
+  :root {
+    --fond: #f5f6f7;
+    --papier: #ffffff;
+    --encre: #1b1f24;
+    --encre-2: #3d444d;
+    --encre-3: #626a72;
+    --trait: #d5d9de;
+    --trait-fort: #9aa2ab;
+    --platine: #e9ebee;
+    --platine-fonce: #2b3138;
+    --platine-clair: #f0f2f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fond: #14171b; --papier: #1c2025; --encre: #eef0f2; --encre-2: #c9ced4; --encre-3: #9aa2ab; --trait: #343a41; --trait-fort: #5a626b; --platine: #262b31; --platine-fonce: #e6e8eb; --platine-clair: #20252b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --fond: #14171b; --papier: #1c2025; --encre: #eef0f2; --encre-2: #c9ced4; --encre-3: #9aa2ab; --trait: #343a41; --trait-fort: #5a626b; --platine: #262b31; --platine-fonce: #e6e8eb; --platine-clair: #20252b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fond); color: var(--encre); font: 16px/1.55 "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.entete { border-bottom: 1px solid var(--trait-fort); padding-bottom: 28px; margin-bottom: 40px; }
+  .surtitre { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--encre-3); margin: 0 0 12px; }
+  h1 { font-size: 40px; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 14px; font-weight: 700; text-wrap: balance; }
+  .chapeau { font-size: 18px; color: var(--encre-2); margin: 0; max-width: 62ch; }
+  h2 { font-size: 24px; letter-spacing: -.01em; margin: 56px 0 18px; padding-top: 24px; border-top: 1px solid var(--trait); font-weight: 700; text-wrap: balance; }
+  h3 { font-size: 17px; margin: 28px 0 10px; font-weight: 700; }
+  p { margin: 0 0 14px; max-width: 68ch; }
+  ul, ol { margin: 0 0 16px; padding-left: 22px; max-width: 68ch; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 700; }
+  code { font: 14px/1.4 "SF Mono", Menlo, Consolas, monospace; background: var(--platine); padding: 1px 6px; border-radius: 3px; }
+  .sommaire { background: var(--papier); border: 1px solid var(--trait); padding: 20px 24px; margin: 0 0 8px; }
+  .sommaire p { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--encre-3); margin: 0 0 10px; }
+  .sommaire ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+  .sommaire a { color: var(--encre); text-decoration: none; border-bottom: 1px solid var(--trait-fort); }
+  .sommaire a:hover, .sommaire a:focus-visible { border-bottom-color: var(--encre); outline: none; }
+  .tableau { overflow-x: auto; border: 1px solid var(--trait); background: var(--papier); margin: 0 0 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--trait); }
+  th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); font-weight: 600; background: var(--platine-clair); }
+  tr:last-child td { border-bottom: none; }
+  td.num { font-variant-numeric: tabular-nums; color: var(--encre-3); white-space: nowrap; }
+  .puce { display: inline-block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--trait-fort); border-radius: 2px; white-space: nowrap; }
+  .puce.auto { background: var(--platine-fonce); color: var(--papier); border-color: var(--platine-fonce); }
+  .encart { background: var(--papier); border: 1px solid var(--trait); border-left: 4px solid var(--platine-fonce); padding: 16px 20px; margin: 20px 0; max-width: 72ch; }
+  .encart p:last-child { margin-bottom: 0; }
+  .parcours { list-style: none; padding: 0; margin: 0 0 20px; counter-reset: etape; max-width: none; }
+  .parcours li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--trait); margin: 0; }
+  .parcours li:last-child { border-bottom: none; }
+  .parcours .n { counter-increment: etape; font-size: 13px; color: var(--encre-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
+  .parcours .n::before { content: counter(etape, decimal-leading-zero); }
+  .parcours .titre { font-weight: 700; margin: 0 0 4px; }
+  .parcours p { margin: 0; color: var(--encre-2); }
+  .message { background: var(--platine-clair); border: 1px solid var(--trait); padding: 14px 18px; margin: 10px 0 18px; font-size: 15px; max-width: 68ch; white-space: pre-line; }
+  .message .obj { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); display: block; margin-bottom: 6px; }
+  .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 0 0 20px; }
+  .carte { background: var(--papier); border: 1px solid var(--trait); padding: 16px 18px; }
+  .carte h3 { margin: 0 0 8px; font-size: 16px; }
+  .carte p { margin: 0; font-size: 15px; color: var(--encre-2); }
+  .etat { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-3); display: block; margin-bottom: 8px; }
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--trait); font-size: 13px; color: var(--encre-3); }
+  @media (max-width: 640px) { h1 { font-size: 30px; } .sommaire ol { columns: 1; } main { padding: 32px 16px 64px; } }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<main>
+  <header class="entete">
+    <p class="surtitre">Oqora · Sous-compte GoHighLevel · à jour au 9 septembre 2026</p>
+    <h1>Guide du CRM Oqora</h1>
+    <p class="chapeau">Comment le système de prospection fonctionne, ce qu'il fait tout seul, et les gestes qui restent à faire à la main.</p>
+  </header>
+
+  <nav class="sommaire" aria-label="Sommaire">
+    <p>Sommaire</p>
+    <ol>
+      <li><a href="#vue">Le système en une page</a></li>
+      <li><a href="#journee">Votre journée</a></li>
+      <li><a href="#pipeline">Les 9 colonnes du pipeline</a></li>
+      <li><a href="#gestes">Vos gestes, du lead à la signature</a></li>
+      <li><a href="#statut">Colonne ou statut : la différence</a></li>
+      <li><a href="#automatisations">Les automatisations et leurs textes</a></li>
+      <li><a href="#telephone">Le téléphone</a></li>
+      <li><a href="#emails">Les e-mails</a></li>
+      <li><a href="#tests">Ce qui a été testé</a></li>
+      <li><a href="#reste">Ce qui reste à faire</a></li>
+    </ol>
+  </nav>
+
+  <div class="encart">
+    <p><strong>Les six mots de ce guide.</strong></p>
+    <ul>
+      <li><strong>Carte</strong> : un prospect posé sur le tableau. Le logiciel l'appelle « opportunité ».</li>
+      <li><strong>Colonne</strong> : l'endroit du tableau où se trouve la carte. Le logiciel l'appelle « étape ». C'est le même mot.</li>
+      <li><strong>Fiche</strong> : la page du prospect, avec son numéro, ses réponses et ses messages.</li>
+      <li><strong>Étiquette</strong> : un mot collé sur une fiche. Ça sert à retrouver des gens d'un coup, et ça sert aux automatisations à savoir quoi faire.</li>
+      <li><strong>Automatisation</strong> : une suite de gestes que le CRM fait tout seul. Le logiciel l'appelle « workflow ».</li>
+      <li><strong>Tâche</strong> : une ligne de votre liste du jour, écrite par le CRM.</li>
+    </ul>
+  </div>
+
+  <h2 id="vue">Le système en une page</h2>
+  <p>Tout se passe dans un seul tableau : <strong>Prospection Oqora</strong>, dans le menu Prospects. Chaque centre esthétique qui remplit le questionnaire de la landing y arrive sous forme de carte. Vous faites avancer cette carte de colonne en colonne.</p>
+  <p>Onze automatisations tournent derrière. Sept s'occupent des prospects : un lead arrive, un appel découverte est posé, une visio est posée, un « OUI » revient, un pré-appel est à faire, un rendez-vous est annulé, un rendez-vous est manqué. Les quatre autres préviennent Meta de vos résultats. Tout le reste, c'est vous.</p>
+  <div class="grille">
+    <div class="carte"><span class="etat">Automatique</span><h3>Le lead arrive</h3><p>Carte créée en « Nouveau lead », notification à vous.</p></div>
+    <div class="carte"><span class="etat">Automatique</span><h3>Un appel découverte est posé</h3><p>La carte se déplace toute seule. Le prospect reçoit un SMS et un e-mail de confirmation, avec la date en français : « lundi 7 septembre à 9h30 ». Puis un e-mail la veille. Puis un SMS et un e-mail 2 heures avant. Vous, vous recevez une tâche « Pré-appel » 12 heures avant. S'il répond OUI, un e-mail vous prévient. Pour une visio, même chose sans le OUI ni l'e-mail de confirmation.</p></div>
+    <div class="carte"><span class="etat">Automatique</span><h3>Annulé ou absent</h3><p>Carte en « À rattraper », étiquette annule ou no-show selon le cas, tâche à votre nom pour reprogrammer.</p></div>
+    <div class="carte"><span class="etat">À la main</span><h3>Le reste</h3><p>« Rappel prévu », « Découverte faite », « Décision en attente » : vous déplacez la carte. À la fin, vous la glissez sur Remportée, Perdue ou Abandonnée.</p></div>
+  </div>
+  <p>Les 58 automatisations d'avant sont rangées dans un dossier <strong>Ancien</strong>. Aucune ne tourne, aucune n'enverra plus jamais rien. Ce qui méritait d'être gardé a été refait à neuf dans le nouveau système.</p>
+
+
+  <h2 id="journee">Votre journée</h2>
+  <p>Le matin, deux écrans. Après chaque appel, un geste. Il n'y a rien d'autre à faire.</p>
+
+  <h3>Vos gestes</h3>
+  <ol class="parcours">
+    <li><span class="n"></span><div><p class="titre">Le matin, votre page d'accueil</p><p>La première case, « Tâches », est votre liste du jour. C'est le CRM qui la remplit, vous n'y écrivez rien. Vous cochez ce qui est fait. La même liste existe ailleurs, dans Contacts → Tâches : vous n'en avez pas besoin, la page d'accueil suffit.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Le matin, Conversations</p><p>Quand un prospect répond à un SMS ou à un e-mail, sa réponse arrive là, et nulle part ailleurs. Vous avez choisi le 9 septembre de ne pas en recevoir de copie dans votre boîte personnelle, donc c'est le seul endroit où ces réponses se lisent.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Après chaque appel, la carte</p><p>Vous glissez la carte du prospect dans la bonne colonne. C'est le seul geste vraiment obligatoire : le CRM sait qu'un rendez-vous a été pris, il ne sait pas ce qui s'est dit au téléphone. Une carte laissée au mauvais endroit, c'est un prospect oublié.</p></div></li>
+  </ol>
+  <div class="encart"><p><strong>Les nouveaux leads ne passent pas par les tâches.</strong> Quand quelqu'un remplit le questionnaire de la landing, vous recevez une notification, et sa carte apparaît en première colonne du pipeline, « Nouveau lead ». C'est là que vous les voyez, et ils s'appellent dans l'heure.</p></div>
+
+  <h3>Votre page d'accueil</h3>
+  <p>C'est le premier écran à l'ouverture du CRM, menu <strong>Tableau de bord</strong>. Elle a été vidée le 9 septembre des huit cases qui n'affichaient rien (Google Analytics, Google Business Profile, publicités Facebook et Google, actions manuelles, origine des prospects, efficacité des ventes, compteur d'opportunités). Il en reste cinq.</p>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>Case</th><th>Ce qu'elle montre</th></tr></thead>
+      <tbody>
+        <tr><td>Tâches</td><td>Votre liste du jour, en haut à gauche pour l'avoir sous les yeux en arrivant.</td></tr>
+        <tr><td>Taux de conversion</td><td>La part de prospects qui signent. Affiche zéro tant que rien n'est remporté.</td></tr>
+        <tr><td>Valeur de Opportunité</td><td>L'argent en jeu, d'après les montants inscrits sur les cartes.</td></tr>
+        <tr><td>Entonnoir</td><td>Combien de cartes à chaque étape, et où ça bloque.</td></tr>
+        <tr><td>Répartition des étapes</td><td>La même information, en camembert.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="encart"><p><strong>À savoir avant de vous inquiéter.</strong> Ces cases affichent « Aucun pipeline disponible » pendant une seconde ou deux, le temps de charger. C'est normal. Et l'entonnoir montre aujourd'hui 48 cartes bloquées en « Nouveau lead » : ce sont d'anciens leads de novembre 2025, réimportés le 29 août. Tant qu'ils sont là, votre entonnoir affiche 100 % en première colonne.</p></div>
+
+  <h2 id="pipeline">Les 9 colonnes du pipeline</h2>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>#</th><th>Colonne</th><th>Ce qu'elle veut dire</th><th>Qui déplace la carte</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Nouveau lead</td><td>Le questionnaire de la landing vient d'arriver. Personne ne l'a encore appelé. Les 48 vieilles cartes de novembre 2025 sont là aussi, en attendant d'être triées.</td><td><span class="puce auto">Automatique</span></td></tr>
+        <tr><td class="num">2</td><td>Appelé, pas de réponse</td><td>Vous avez tenté de l'appeler, il n'a jamais décroché. Chaque appel passé depuis le CRM s'inscrit tout seul dans sa fiche : c'est là que vous comptez vos tentatives. Un appel passé depuis votre mobile, lui, ne s'inscrit nulle part.</td><td><span class="puce">Vous</span></td></tr>
+        <tr><td class="num">3</td><td>Rappel prévu</td><td>Vous l'avez eu au téléphone, il faut le rappeler dans quelques jours ou semaines.</td><td><span class="puce">Vous</span></td></tr>
+        <tr><td class="num">4</td><td>RDV découverte posé</td><td>Le prospect a réservé un créneau dans l'agenda « Oqora Appel Découverte ». Il dure 30 minutes et bloque 1 h 30 dans votre agenda, pour que vous puissiez enchaîner sur la visio. Attention : votre SMS de confirmation annonce encore 15 minutes.</td><td><span class="puce auto">Automatique</span></td></tr>
+        <tr><td class="num">5</td><td>RDV posé, pré-appel fait</td><td>Il a pris rendez-vous, et vous l'avez déjà eu au téléphone avant : pour vérifier qu'il sera bien là, et que l'appel vaut le coup.</td><td><span class="puce">Vous</span></td></tr>
+        <tr><td class="num">6</td><td>Découverte faite</td><td>L'appel découverte a eu lieu. Il reste à poser la visio stratégie.</td><td><span class="puce">Vous</span></td></tr>
+        <tr><td class="num">7</td><td>RDV closing posé</td><td>Un créneau « Visio Stratégie » est réservé.</td><td><span class="puce auto">Automatique</span></td></tr>
+        <tr><td class="num">8</td><td>Décision en attente</td><td>La visio a eu lieu, le centre a demandé un délai pour répondre. Vous le relancez à la date convenue.</td><td><span class="puce">Vous</span></td></tr>
+        <tr><td class="num">9</td><td>À rattraper (annulé / no-show)</td><td>Un rendez-vous a été annulé ou le prospect n'est pas venu. Quand un nouveau rendez-vous est posé, la carte revient seule à la bonne colonne.</td><td><span class="puce auto">Automatique</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="encart"><p><strong>La règle qui évite les cartes fantômes :</strong> quand vous posez un rendez-vous, faites-le toujours par le calendrier (le lien de réservation, ou « Nouveau rendez-vous » dans Calendriers). C'est le calendrier qui déclenche le déplacement automatique. Une carte déplacée à la main en « RDV découverte posé » sans rendez-vous dans le calendrier n'enverra ni confirmation ni rappel.</p>
+  <p><strong>Et le prospect qui ne vient pas de la landing ?</strong> Le CRM commence par chercher sa carte dans Prospection Oqora. S'il n'en a pas, la chaîne s'arrête là : aucune confirmation, aucun rappel, et la carte ne se déplace pas. C'est le cas de toute personne que vous ajoutez à la main ou que vous rencontrez en message privé. Le geste à prendre : créez-lui sa carte <em>avant</em> de poser le rendez-vous.</p></div>
+
+  <h2 id="gestes">Vos gestes, du lead à la signature</h2>
+  <ol class="parcours">
+    <li><span class="n"></span><div><p class="titre">Une notification arrive : « Nouveau lead pub »</p><p>Ouvrez la fiche du contact. Ses réponses au questionnaire sont dans le bandeau de droite de sa fiche, dans le dossier <strong>Quiz landing</strong>. Lisez-les avant d'appeler, c'est tout ce que vous savez de lui. Sa carte est déjà en « Nouveau lead ».</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Vous appelez dans l'heure</p><p>Depuis la fiche : bouton d'appel, ou votre téléphone. Pas de réponse : rappelez tout de suite (deux appels collés = une tentative), puis envoyez un e-mail depuis la conversation. Déplacez la carte en <strong>Appelé, pas de réponse</strong> s'il n'a pas décroché, ou en <strong>Rappel prévu</strong> si vous l'avez eu et qu'il faut le rappeler plus tard.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Le prospect accepte un appel découverte</p><p>Réservez le créneau dans le calendrier « Oqora Appel Découverte » (ou envoyez le lien de réservation). La carte passe seule en <strong>RDV découverte posé</strong>, le prospect reçoit la confirmation par e-mail et un rappel la veille.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">L'appel découverte a eu lieu</p><p>Déplacez la carte en <strong>Découverte faite</strong>. Notez ce qui compte dans la fiche (une note suffit).</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Vous posez la visio stratégie</p><p>Réservez dans « Oqora Visio Stratégie ». La carte passe seule en <strong>RDV closing posé</strong>. Le prospect reçoit un SMS de confirmation, et l'invitation Google Agenda avec le lien de la visio. Il n'y a pas d'e-mail de confirmation pour la visio : le premier e-mail part la veille.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Un rendez-vous est annulé ou manqué</p><p>Dans Calendriers, passez le rendez-vous en « Annulé » ou « Non honoré ». La carte passe seule en <strong>À rattraper</strong>, et une tâche « Reprogrammer … » apparaît dans vos tâches pour le lendemain 9 h. Quand vous reposez un rendez-vous, le calendrier ramène la carte à la bonne étape.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Fin de parcours</p><p>Signature : écrivez le montant dans « Valeur » sur la carte, posez l'étiquette de l'offre (offre-essai ou offre-lancement), puis glissez la carte sur la zone « Remportée » en bas du tableau. Le signal d'achat part à Meta avec ce montant. Refus : glissez la carte sur « Perdue ». Jamais joint ou hors cible : glissez-la sur « Abandonnée ». La carte quitte votre vue des opportunités actives.</p></div></li>
+  </ol>
+
+  <h2 id="statut">Colonne ou statut : la différence</h2>
+  <p>La <strong>colonne</strong> dit où en est la conversation. C'est votre tableau de tous les jours, et la seule chose que les automatisations font bouger. Le <strong>statut</strong> dit comment l'histoire finit. Toutes les cartes naissent « Ouvert » et le restent tant que ça discute. À la fin, un seul geste : vous glissez la carte sur l'une des trois zones qui apparaissent en bas du tableau quand vous la déplacez.</p>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>Zone</th><th>Quand</th><th>Ce qui se passe</th></tr></thead>
+      <tbody>
+        <tr><td>Remportée</td><td>Le centre a signé. Montant écrit dans « Valeur » et étiquette de l'offre posée avant de glisser.</td><td>Statut Remporté, la carte quitte la vue active, le signal d'achat part à Meta avec le montant.</td></tr>
+        <tr><td>Perdue</td><td>Le centre a dit non après une vraie discussion.</td><td>Statut Perdu, la carte quitte la vue active. Rien n'est envoyé.</td></tr>
+        <tr><td>Abandonnée</td><td>Jamais joint malgré les relances, ou hors cible (pas de cabine, pas décideur).</td><td>Statut Abandonné, la carte quitte la vue active. Rien n'est envoyé.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Il n'y a plus de colonne « Signée » ni « Perdu » depuis le 9 septembre : elles faisaient doublon avec ces zones. Perdue et Abandonnée ne se distinguent que dans vos chiffres : un « Perdu » parle de l'offre, un « Abandonné » parle de la pub ou du ciblage.</p>
+
+  <h2 id="automatisations">Les automatisations et leurs textes</h2>
+  <p>Dossier <strong>Automatisation → Prospection Oqora</strong>. Chaque workflow est publié et a été vérifié par l'API. Pour en modifier un : ouvrez-le, changez l'action, cliquez « Enregistrer l'action », puis <strong>« Enregistrer » en haut de l'écran</strong>. Sans ce second clic, le workflow continue de tourner avec l'ancienne version.</p>
+
+  <h3>P1 · Nouveau lead pub</h3>
+  <p><strong>Déclencheur :</strong> le sondage « Landing — Vérification de zone » est soumis. <strong>Actions :</strong> créer l'opportunité « Prénom Nom · pub » en « Nouveau lead » (pipeline Prospection Oqora, statut Ouvert) · vous envoyer une notification (e-mail et application).</p>
+  <div class="encart"><p><strong>Les mots entre accolades.</strong> Dans les textes qui suivent, <code>{{contact.first_name}}</code> ou <code>{{contact.rdv_affichage}}</code> ne partent jamais tels quels. Le CRM les remplace au moment de l'envoi par le vrai prénom, la vraie date, le vrai numéro. Le prospect ne voit que le résultat.</p></div>
+  <div class="message"><span class="obj">Notification interne</span>Nouveau lead pub : {{contact.first_name}} {{contact.last_name}}, {{contact.phone}}. Réponses au questionnaire dans la fiche contact.</div>
+
+  <h3>P2 · RDV posé — Appel Découverte</h3>
+  <p><strong>Ça part quand :</strong> un prospect réserve un créneau dans l'agenda « Oqora Appel Découverte ».</p>
+  <p><strong>Ce qui se passe, dans l'ordre :</strong></p>
+  <ol>
+    <li>Sa carte passe en « RDV découverte posé ».</li>
+    <li>L'étiquette visio-posee est retirée de sa fiche, si elle y était.</li>
+    <li>La date est réécrite en français : « lundi 7 septembre à 9h30 ».</li>
+    <li>Il reçoit tout de suite un SMS et un e-mail de confirmation. Le SMS lui demande de répondre OUI.</li>
+    <li>La veille, il reçoit un e-mail de rappel. Plus de SMS la veille : c'est votre pré-appel qui fait ce rappel-là.</li>
+    <li>2 heures avant, il reçoit un SMS et un e-mail.</li>
+  </ol>
+  <p>Si le rendez-vous est pris pour dans moins de 24 heures, l'e-mail de la veille est sauté. Le rappel de 2 heures part quand même.</p>
+  <p>Tous ces messages sont écrits à la première personne et signés « Jules de Oqora ».</p>
+  <div class="message"><span class="obj">SMS de confirmation (le texte de l'image de la page de confirmation, écrit par Jules ; sur la page l'image dit « votre prénom » et « selon le créneau que vous venez de réserver », dans le vrai SMS c'est le prénom et la date)</span>Bonjour {{contact.first_name}}, de mon côté j'ai bien noté notre appel le {{contact.rdv_affichage}}.
+
+Pouvez-vous me confirmer par un « OUI » que vous serez bien disponible à cette heure-là pour un échange téléphonique de 15 minutes ?
+
+À très vite j'espère ! J'ai hâte d'échanger avec vous.
+
+— Jules de Oqora</div>
+  <div class="message"><span class="obj">E-mail de confirmation · objet : Notre appel le {{contact.rdv_affichage}}</span>Bonjour {{contact.first_name}}, de mon côté j'ai bien noté notre appel le {{contact.rdv_affichage}}. Je vous appelle sur le {{contact.phone}}.
+
+Vous recevez aussi un SMS, répondez « OUI » pour verrouiller votre créneau. Si vous voulez l'avoir dans votre agenda Google, je vous mets le lien juste ici {{appointment.add_to_google_calendar}}.
+
+Si finalement ce créneau ne vous arrange pas, répondez-moi par message pour le décaler.
+
+À très vite j'espère ! J'ai hâte d'échanger avec vous.
+
+— Jules de Oqora</div>
+  <div class="message"><span class="obj">E-mail de la veille · objet : Notre appel de demain</span>Bonjour {{contact.first_name}}, notre appel, c'est demain, {{contact.rdv_affichage}}. Je vous appelle au {{contact.phone}}.
+
+Si quelque chose a changé de votre côté, répondez-moi par message au 07 57 59 82 02 pour le décaler.
+
+À demain ! J'ai hâte d'échanger avec vous.
+
+— Jules de Oqora</div>
+  <div class="message"><span class="obj">SMS 2 heures avant</span>Bonjour {{contact.first_name}}, c'est Jules de Oqora. Je vous appelle dans 2 heures sur ce numéro, comme prévu. À tout à l'heure.</div>
+  <div class="message"><span class="obj">E-mail 2 heures avant · objet : Je vous appelle dans 2 heures</span>Bonjour {{contact.first_name}}, je vous appelle dans 2 heures au {{contact.phone}}, comme prévu.
+
+À tout à l'heure !
+
+— Jules de Oqora</div>
+  <div class="encart"><p><strong>Les SMS partent depuis le +33 7 57 59 82 02</strong>, votre numéro Twilio historique. Il s'était détaché du sous-compte (erreur « No numbers available » au test du 5 septembre au matin) ; il a été rattaché dans Système téléphonique et remis par défaut, et un SMS de test a été délivré sur votre portable. Si un jour les SMS échouent à nouveau, c'est le premier endroit à regarder : Paramètres → Système téléphonique → si la ligne 82 02 montre un bouton « ajouter », cliquez-le.</p></div>
+
+  <h3>P2b · RDV posé — Visio Stratégie</h3>
+  <p>P2b fait pour la visio ce que P2 fait pour l'appel. L'agenda concerné est « Oqora Visio Stratégie » : 40 minutes, sur Google Meet.</p>
+  <p>La carte passe en « RDV closing posé ». La date est mise en français. L'étiquette visio-posee est posée sur la fiche.</p>
+  <p>Le prospect reçoit un SMS de confirmation, puis un e-mail la veille, puis un SMS et un e-mail 2 heures avant. Le lien Google Meet est dans ces trois derniers messages. Vous, vous recevez une tâche de pré-appel 12 heures avant.</p>
+  <p>Deux différences avec l'appel découverte. Pas de demande de « OUI ». Pas d'e-mail de confirmation non plus : la visio se cale de vive voix à la fin de l'appel découverte, et l'invitation Google Agenda part déjà toute seule avec la date et le lien.</p>
+  <p>L'étiquette visio-posee sert à P3 : sans elle, un appel découverte annulé après une visio posée serait pris pour un faux bond. Elle reste sur la fiche jusqu'au prochain appel découverte, qui la retire.</p>
+  <div class="message"><span class="obj">SMS de confirmation</span>J'ai bien noté notre visio le {{contact.rdv_affichage}}. Je vous envoie le lien de la visio par SMS 2 heures avant. À très vite !</div>
+    <div class="message"><span class="obj">E-mail de la veille · objet : Notre visio de demain</span>Bonjour {{contact.first_name}}, notre visio, c'est demain, {{contact.rdv_affichage}}, sur Google Meet. Je vous envoie le lien 2 heures avant, et vous pouvez aussi le retrouver ici {{appointment.meeting_location}}.
+
+Si quelque chose a changé de votre côté, répondez-moi par message au 07 57 59 82 02 pour la décaler.
+
+À demain !
+
+— Jules de Oqora</div>
+  <div class="message"><span class="obj">SMS 2 heures avant</span>Bonjour {{contact.first_name}}, c'est Jules de Oqora. Notre visio commence dans 2 heures, le lien est juste ici {{appointment.meeting_location}}. À tout à l'heure.</div>
+  <div class="message"><span class="obj">E-mail 2 heures avant · objet : Notre visio dans 2 heures</span>Bonjour {{contact.first_name}}, notre visio commence dans 2 heures, comme prévu. Le lien pour me rejoindre est juste ici {{appointment.meeting_location}}.
+
+À tout à l'heure !
+
+— Jules de Oqora</div>
+
+  <div class="encart"><p><strong>Déplacer, annuler ou marquer absent un rendez-vous (appel ou visio).</strong> Menu Calendriers → Vue calendrier → cliquez sur le rendez-vous : un volet « Afficher les détails » s'ouvre à droite. Pour le déplacer, cliquez le crayon en haut du volet, changez « Heure de début » et « Heure de fin », puis « Sauvegarder » : le CRM repart sur la nouvelle date (nouvelle confirmation, rappels et tâche de pré-appel recalés, anciens abandonnés). Pour une annulation ou une absence, utilisez le menu « État » en bas du volet : Annulé ou Non honoré. La corbeille supprime le rendez-vous, ce qui arrête aussi tout.</p></div>
+
+  <h3>P2c · Réponse OUI — RDV verrouillé</h3>
+  <p><strong>Déclencheur :</strong> le prospect répond par SMS et son message contient « oui ». <strong>Actions :</strong> ajouter l'étiquette <code>rdv-confirme-oui</code> · vous envoyer un e-mail. C'est la contrepartie de la page de confirmation, qui demande au prospect de répondre OUI pour verrouiller son créneau : sans cette étiquette sur la fiche, il n'a pas confirmé, et la page lui a dit que son créneau pouvait être libéré. Aucune réponse automatique ne lui est envoyée pour l'instant.</p>
+  <div class="message"><span class="obj">Notification · objet : OUI reçu : {{contact.first_name}} {{contact.last_name}} a verrouillé son rendez-vous</span>{{contact.first_name}} {{contact.last_name}} ({{contact.phone}}) a répondu OUI par SMS. Rendez-vous : {{contact.rdv_affichage}}. Rien à faire, le créneau est verrouillé.</div>
+
+  <h3>P2d · Pré-appel — Appel et Visio</h3>
+  <p><strong>Déclencheurs :</strong> rendez-vous confirmé dans « Oqora Appel Découverte » ou dans « Oqora Visio Stratégie ». <strong>Actions :</strong> attendre jusqu'à 12 heures avant le rendez-vous · créer une tâche à votre nom, due le jour même. Créée le 8 septembre à votre demande : vous appelez vous-même le prospect avant le rendez-vous (la veille au soir pour un rendez-vous du matin, le matin même pour un rendez-vous de l'après-midi), et la liste des tâches vous dit qui reste à appeler. Un rendez-vous pris à moins de 12 heures crée la tâche immédiatement. Cette automatisation n'envoie rien au prospect.</p>
+  <div class="message"><span class="obj">Tâche · titre</span>Pré-appel : {{contact.first_name}} {{contact.last_name}} · RDV {{contact.rdv_affichage}}
+Description : Appeler {{contact.first_name}} au {{contact.phone}} avant notre rendez-vous du {{contact.rdv_affichage}}.</div>
+
+  <h3>P3 · RDV annulé, P3b · RDV non honoré</h3>
+  <p><strong>P3 — un rendez-vous est annulé.</strong> Le CRM attend 15 minutes, puis il se pose une question : est-ce un vrai faux bond ?</p>
+  <ul>
+    <li>Une visio annulée est toujours un vrai faux bond.</li>
+    <li>Un appel découverte annulé n'en est un que si aucune visio n'a été posée depuis.</li>
+  </ul>
+  <p>Si c'est un vrai faux bond : la carte passe en « À rattraper », la fiche est marquée « annule », et une tâche « Reprogrammer » apparaît pour le lendemain 9 h. Sinon, rien ne bouge. C'est ce qui arrive quand vous posez la visio pendant le pré-appel, puis annulez l'appel devenu inutile.</p>
+  <p><strong>P3b — le prospect n'est pas venu.</strong> Même résultat, tout de suite et sans question posée. La fiche est marquée « no-show ».</p>
+  <p>Dans les deux cas, le prospect ne reçoit aucun message. Ses rappels et sa tâche de pré-appel s'arrêtent tout seuls.</p>
+  <div class="message"><span class="obj">Tâche · due le lendemain à 9 h</span>Reprogrammer {{contact.first_name}} {{contact.last_name}} · {{calendar.name}} · annulé   (ou « · non honoré » pour une absence)
+Appeler ou écrire pour proposer un nouveau créneau. Rendez-vous initial : {{contact.rdv_affichage}}. Echéance J+1.</div>
+  <p>Le titre de la tâche dit donc quel rendez-vous a sauté (Oqora Appel Découverte ou Oqora Visio Stratégie) et pourquoi, sans ouvrir la fiche.</p>
+  <div class="encart"><p><strong>Retour depuis « À rattraper » (corrigé le 9 septembre).</strong> Quand une personne en « À rattraper » reprend un appel ou une visio, la carte revient en « RDV découverte posé » ou « RDV closing posé » : les automatisations de rendez-vous ont désormais le droit de ramener une carte vers une colonne précédente.</p></div>
+
+  <h3>P4 · Meta Lead, P4b · Meta Schedule, P4c · Meta CompleteRegistration, P4d · Meta Purchase</h3>
+  <p>Ces quatre automatisations préviennent Meta à chaque étape franchie : un lead arrive, un appel est posé, une visio est posée, un centre signe. Meta s'en sert pour montrer votre publicité à des gens qui ressemblent à ceux qui avancent. Plus vous lui donnez de signatures, mieux elle cible.</p>
+  <p>Vous n'avez rien à faire, sauf une chose : <strong>écrire le montant sur la carte avant de la glisser sur « Remportée »</strong>. Sans montant, la signature ne part pas à Meta. Le montant dépend de l'offre, essai ou lancement.</p>
+  <p>Pour mémoire, si un jour il faut y toucher : les envois partent sur le jeu de données Meta 1249674110335330, avec la clé d'accès reprise des anciennes automatisations.</p>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>Workflow</th><th>Déclencheur</th><th>Événement envoyé à Meta</th></tr></thead>
+      <tbody>
+        <tr><td>P4 · Meta Lead</td><td>Questionnaire de la landing soumis</td><td>Lead</td></tr>
+        <tr><td>P4b · Meta Schedule</td><td>Rendez-vous confirmé, Appel Découverte</td><td>Schedule</td></tr>
+        <tr><td>P4c · Meta CompleteRegistration</td><td>Rendez-vous confirmé, Visio Stratégie</td><td>CompleteRegistration</td></tr>
+        <tr><td>P4d · Meta Purchase</td><td>Carte glissée sur « Remportée » (statut Remporté, pipeline Prospection Oqora)</td><td>Purchase, avec le montant inscrit sur la carte (champ « valeur » de l'opportunité). Sans montant sur la carte, rien ne part.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="encart"><p><strong>Deux choses à savoir.</strong> Le bouton « Tester le flux de travail » ne peut pas prouver ces envois : Meta refuse un événement sans données d'attribution, donc la preuve viendra du premier vrai prospect venu d'une publicité. Et si vous créez un pixel dédié à la nouvelle landing, il faudra changer l'identifiant du jeu de données et le jeton dans les quatre actions.</p></div>
+
+
+  <h2 id="telephone">Le téléphone</h2>
+  <p>Votre numéro professionnel est le <strong>07 57 59 82 02</strong>. C'est lui qui envoie vos SMS, c'est lui que voient vos prospects, et c'est lui qu'ils rappellent. Il se règle dans <strong>Paramètres → Système téléphonique</strong>, par le menu à droite de la ligne, « paramètre de modification ».</p>
+
+  <h3>Quand un prospect appelle</h3>
+  <ol class="parcours">
+    <li><span class="n"></span><div><p class="titre">Le prospect appelle</p><p>Il compose le 07 57 59 82 02, le numéro qu'il a vu dans vos messages.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Votre mobile sonne</p><p>Le 07 82 12 80 97 sonne, et l'écran affiche le 07 57 59 82 02, pas le numéro du prospect. Enregistrez ce numéro dans vos contacts sous « CRM Oqora » : vous reconnaîtrez l'appel d'un coup d'œil.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Vous décrochez</p><p>Le prospect ne vous entend pas encore.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">Une voix devrait vous dire qui appelle</p><p>Le message est réglé sur « Appel CRM Oqora. Prénom Nom. » Il ne parle que dans votre oreille, le prospect ne l'entend jamais. <strong>Ce point n'a pas encore été essayé en vrai.</strong> Le nom est censé se remplir tout seul, mais la documentation de GoHighLevel ne le garantit pas pour ce champ, et l'accent de la voix n'est pas connu. Faites-vous appeler une fois par un proche pour l'entendre.</p></div></li>
+    <li><span class="n"></span><div><p class="titre">La conversation commence</p><p>Les appels que vous passez depuis le CRM s'inscrivent dans la fiche, avec leur durée : c'est votre compteur d'appels. Pour un appel entrant renvoyé sur votre mobile, ce n'est pas vérifié. Regardez la fiche après votre premier vrai appel entrant.</p></div></li>
+  </ol>
+  <p>Ce message d'annonce s'appelle le <strong>message chuchoté</strong> (onglet Advanced Settings). Il est réglé sur « Appel CRM Oqora. {{contact.first_name}} {{contact.last_name}}. » et ne joue que sur un renvoi vers un vrai téléphone : si un jour vous prenez les appels dans l'application HighLevel, il n'y aura plus d'annonce vocale.</p>
+  <div class="encart"><p><strong>Ce qui n'est pas possible.</strong> L'étape du pipeline ne peut pas être annoncée ni affichée pendant la sonnerie : aucune variable d'opportunité n'existe à cet endroit. Et aucune automatisation ne peut vous prévenir pendant que ça sonne, car le seul déclencheur d'appel du logiciel, « Détails de l'appel », se déclenche une fois l'appel terminé.</p></div>
+  <p>Deux autres numéros, le 26 29 et le 71 81, existent sur le compte sans être rattachés. Ils ne servent à rien aujourd'hui.</p>
+
+  <h2 id="emails">Les e-mails</h2>
+  <p>Vos prospects voient <strong>« Jules de Oqora », adresse info@oqora.fr</strong>. L'envoi passe par votre domaine dédié <strong>contact.oqora.fr</strong>, ce qui aide vos messages à arriver en boîte de réception plutôt qu'en indésirables. Chaque e-mail se termine par la ligne de désinscription obligatoire, en français.</p>
+  <p><strong>Cinq e-mails partent tout seuls</strong> : confirmation, veille et deux heures avant pour l'appel découverte ; veille et deux heures avant pour la visio. Leurs textes exacts sont plus haut, dans P2 et P2b.</p>
+  <div class="encart"><p><strong>Où arrivent les réponses.</strong> Quand un prospect répond à un de ces e-mails, sa réponse arrive dans <strong>Conversations</strong>, dans le CRM. Elle n'arrive pas dans votre boîte Gmail : aucune redirection n'est configurée, c'est un choix assumé du 9 septembre. Prenez donc l'habitude d'ouvrir Conversations, sinon une réponse peut dormir sans être vue. C'est déjà arrivé : une prospecte avait annulé son rendez-vous par e-mail le 26 novembre dernier, et sa réponse est toujours marquée non lue.</p></div>
+  <h3>Vos chiffres au 9 septembre</h3>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>Mesure</th><th>Nombre</th><th>Ce que ça veut dire</th></tr></thead>
+      <tbody>
+        <tr><td>Envoyés</td><td>27</td><td>Depuis la mise en service du domaine.</td></tr>
+        <tr><td>Livrés</td><td>21</td><td>Arrivés chez le destinataire.</td></tr>
+        <tr><td>Ouverts</td><td>5</td><td>5 ouvertures sur les 21 e-mails arrivés, soit 19 %. Le volume est trop petit pour en tirer quoi que ce soit.</td></tr>
+        <tr><td>Rebonds</td><td>6</td><td>Six adresses inventées, créées pour les tests du 8 septembre. Ça ne se refera plus : trop de rebonds abîme la réputation de votre domaine, et vos vrais e-mails finissent en indésirables.</td></tr>
+        <tr><td>Plaintes et désabonnements</td><td>0</td><td>Personne ne vous a signalé comme indésirable.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Les chiffres se lisent dans <strong>Paramètres → Email Services → Statistiques des e-mails</strong>, et par message dans <strong>Marketing → Adresses e-mail</strong>.</p>
+  <p>Deux réserves du logiciel restent inutilisées et pourraient servir plus tard : les <strong>extraits</strong> (Marketing → Extraits), des réponses toutes prêtes à insérer dans une conversation, et les <strong>modèles</strong> d'e-mail. Aucun n'est nécessaire aujourd'hui.</p>
+
+  <h2 id="tests">Ce qui a été testé</h2>
+  <p>Les scénarios ont été joués sur votre propre fiche contact (couapel jules), puis nettoyés : opportunités de test supprimées, étiquettes retirées, tâche supprimée, rendez-vous de test supprimés. Le 5 septembre à 14 h 12, une vraie réservation (lundi 7 septembre 9 h 30) a produit le SMS « j'ai bien noté notre appel le lundi 7 septembre à 9h30 … répondre « OUI » » (délivré) et l'e-mail « noté le lundi 7 septembre à 9h30 » avec le lien d'ajout à l'agenda.</p>
+  <div class="tableau">
+    <table>
+      <thead><tr><th>Scénario</th><th>Comment</th><th>Résultat</th></tr></thead>
+      <tbody>
+        <tr><td>P1 · nouveau lead</td><td>Test lancé depuis l'automatisation, sur votre contact, le 5 septembre</td><td>Carte créée en Nouveau lead, notification reçue. Depuis, P1 ne pose plus d'étiquette : elle a été retirée le 8 septembre.</td></tr>
+        <tr><td>P2 · RDV posé</td><td>Vraie réservation par le lien public du calendrier, le 5 septembre</td><td>Carte passée en RDV découverte posé. SMS délivré et e-mail reçu, avec la date en français (lundi 7 septembre à 9h30).</td></tr>
+        <tr><td>P3 · RDV annulé</td><td>Rendez-vous passé en « Annulé » dans Calendriers, le 5 septembre</td><td>Carte passée en À rattraper, étiquette posée, tâche créée. P3 a été refait depuis. Le 8 septembre, seul le cas « visio déjà posée » a été rejoué : rien ne s'est déclenché, c'était le but. Une vraie annulation n'a pas été rejouée depuis.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="reste">Ce qui reste à faire</h2>
+  <ul>
+    <li><strong>Trier les 48 vieilles cartes.</strong> Ce sont les leads de novembre 2025, réimportés le 29 août, tous en « Nouveau lead ». Tant qu'elles sont là, trois des cinq cases de votre page d'accueil ne veulent rien dire. Deux issues : vous les rappelez, ou on les glisse toutes sur « Abandonnée ». À trancher.</li>
+    <li><strong>Tester le téléphone.</strong> Faites-vous appeler sur le 07 57 59 82 02 par un proche. Vous saurez si la voix annonce bien le nom, et avec quel accent : ce point n'a jamais été vérifié en vrai. Supprimez ensuite le contact « Test Sonnerie », créé pour ce test.</li>
+    <li><strong>Trancher la durée de l'appel découverte.</strong> L'agenda réserve 30 minutes depuis le 8 septembre. Votre SMS de confirmation, lui, annonce 15 minutes au prospect. Soit on remet l'agenda à 15 minutes, soit on change le SMS.</li>
+    <li><strong>Trancher la phrase de la page de confirmation</strong> qui dit au prospect que son créneau sera libéré sans réponse. Rien ne le libère : vous avez décidé de ne pas construire d'annulation automatique. Il faut retirer la phrase ou l'assumer.</li>
+    <li><strong>Regarder passer le premier vrai rendez-vous.</strong> Les textes actuels ont été posés les 8 et 9 septembre, après le dernier test réel. Aucun vrai prospect ne les a encore reçus.</li>
+    <li><strong>Si vous créez un pixel dédié à la nouvelle landing</strong>, il faudra changer le numéro et la clé d'accès dans les quatre automatisations Meta.</li>
+  </ul>
+
+  <h2>Les réglages déjà en place</h2>
+  <p>Rien à faire dans cette section. Elle existe pour que vous sachiez où regarder le jour où quelque chose cloche.</p>
+  <ul>
+    <li><strong>Les SMS</strong> repartent depuis votre numéro +33 7 57 59 82 02. Rien à faire, sauf si un jour la ligne affiche à nouveau un bouton « ajouter » dans Système téléphonique.</li>
+    <li><strong>Le calendrier « Oqora Appel Découverte »</strong> : la description affichée sur le lien de réservation est déjà celle voulue depuis le 4 septembre au soir (« Ce même système a aidé des dizaines de cliniques… »), et l'espace parasite à la fin du nom a été retiré le 5 septembre. Rien à faire.</li>
+    <li><strong>L'expéditeur des e-mails est « Jules de Oqora &lt;info@oqora.fr&gt; »</strong>, et c'est vous qui l'aviez réglé : Paramètres → Email Services → configuration du domaine contact.oqora.fr → « Définir des en-têtes ». Cet en-tête s'applique à tous les e-mails de workflow, quoi qu'on mette ailleurs. L'adresse de réponse « info@contact.oqora.fr » que vous voyez n'est pas un réglage : GHL la fabrique pour que les réponses des prospects reviennent dans Conversations. Ne la remplacez pas. L'adresse de l'entreprise (Profil d'entreprise) a été remise sur info@oqora.fr le 5 septembre, pour que tout pointe au même endroit ; contact@oqora.fr n'est plus utilisé nulle part.</li>
+    <li><strong>Les dates sont en français naturel</strong> dans tous les messages (SMS, e-mails, tâche) : « lundi 7 septembre à 9h30 ». Le champ « RDV affichage » est rempli en tête de P2 et P2b par l'action « Code personnalisé » nommée « Date du RDV en français » (jour et mois en lettres, « 1er », « à », heure en 9h ou 9h30, pas d'année). Si un jour vous ajoutez un message qui parle de la date, utilisez le champ personnalisé « RDV affichage » et jamais « Appointment › Start Date Time », qui sort en anglais. Cette action est facturée à l'exécution par GHL, comme l'ancien GPT de vos workflows.</li>
+    <li><strong>Les notifications</strong> (P1 nouveau lead, P2c réponse OUI) et les tâches (P3, P3b) sont adressées au compte utilisateur « jules Couapel », jules@oqora.fr.</li>
+    <li><strong>Page de confirmation, bouton « Répondre oui »</strong> : les deux versions (mobile et bureau) ouvrent désormais l'application Messages avec « OUI » déjà écrit, vers le 07 57 59 82 02 (action « URL du site web », lien <code>sms:+33757598202?&amp;body=OUI</code>, page sauvegardée le 5 septembre à 12 h 16, vérifiée sur l'aperçu). Le OUI envoyé déclenche P2c.</li>
+  </ul>
+
+  <footer>Document mis à jour le 9 septembre 2026 à partir de l'état réel du sous-compte Oqora (identifiant jmUms8s51Jw4OuPsmVLt). Les textes des messages sont ceux enregistrés dans les workflows.</footer>
+</main>
