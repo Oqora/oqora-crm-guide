@@ -2,7 +2,7 @@
 
 Le mode d'emploi du système de prospection d'Oqora, monté dans GoHighLevel (sous-compte Oqora).
 
-**Le guide : [guide-crm-oqora.html](guide-crm-oqora.html)** — ouvrir le fichier puis cliquer sur « Preview » pour le lire mis en forme.
+**Le guide se lit ici : https://oqora.github.io/oqora-crm-guide/**
 
 ## Ce qu'il contient
 
